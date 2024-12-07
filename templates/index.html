@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gene Location Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gene Location Finder - Aspergillus fumigatus</h1>
+    <form action="/search" method="post">
+        <label for="bigg_id">Enter BIGG ID:</label>
+        <input type="text" id="bigg_id" name="bigg_id" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if bigg_id %}
+    <div class="results">
+        {% if locations %}
+            <h3>Locations for BIGG ID: {{ bigg_id }}</h3>
+            <ul>
+                {% for location, genes in locations.items() %}
+                    <li><strong>{{ location }}:</strong> {{ ', '.join(genes) }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ message }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</body>
+</html>
